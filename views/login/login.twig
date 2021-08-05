@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{ title }}</title>
+    {% include '../head.twig' %}
+</head>
+<body class="hold-transition login-page skin-yellow">
+<div class="login-box">
+    <div class="login-logo">
+        <a href="/">
+            <img src="/logo.svg" alt="Block-chain.com">
+        </a>
+    </div>
+    <!-- /.login-logo -->
+    <div class="login-box-body">
+        {% include '../messages/badgeMessages.twig' %}
+       <!-- <p class="login-box-msg">Sign in to start your session</p> -->
+
+        <form  method="post" class="form-element">
+            <div class="form-group has-feedback">
+                <input type="email"  name="login" class="form-control" placeholder="Email">
+                <span class="ion ion-email form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <input type="password"  name="password" class="form-control" placeholder="Password">
+                <span class="ion ion-locked form-control-feedback"></span>
+            </div>
+            <div class="row">
+
+                <!-- /.col -->
+                <div class="col-6">
+                    <div class="fog-pwd">
+                       <!-- <a href="javascript:void(0)"><i class="ion ion-locked"></i> Forgot password?</a><br> -->
+                    </div>
+                </div>
+                <!-- /.col -->
+                <div class="col-12 text-center">
+                    <button type="submit" class="btn btn-info btn-block margin-top-10">SIGN IN</button>
+                </div>
+                <!-- /.col -->
+            </div>
+        </form>
+
+       <!-- <div class="social-auth-links text-center">
+            <p>- OR -</p>
+            <a href="#" class="btn btn-social-icon btn-circle btn-facebook"><i class="fa fa-facebook"></i></a>
+            <a href="#" class="btn btn-social-icon btn-circle btn-google"><i class="fa fa-google-plus"></i></a>
+        </div> -->
+        <!-- /.social-auth-links -->
+
+        <div class="margin-top-30 text-center">
+            <p>Don't have an account? <a href="/login/register" class="text-info m-l-5">Sign Up</a></p>
+        </div>
+
+    </div>
+    <!-- /.login-box-body -->
+</div>
+<!-- /.login-box -->
+
+
+<!-- jQuery 3 -->
+<script src="/assets/vendor_components/jquery/dist/jquery.min.js"></script>
+
+<!-- popper -->
+<script src="/assets/vendor_components/popper/dist/popper.min.js"></script>
+
+<!-- Bootstrap 4.0-->
+<script src="/assets/vendor_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+</body>
+</html>
+
+
+

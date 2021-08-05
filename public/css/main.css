@@ -1,0 +1,68 @@
+.btn-app > .mdi, .btn-app > .em {
+    font-size: 20px;
+    /*display: block;*/
+}
+
+.btn-app > .mdi {
+    margin: -5px -5px -7px -5px;
+    display: block;
+}
+
+@media (min-width: 770px) {
+    .hiddenOnDesktop {
+        opacity: 0;
+        pointer-events: none;
+    }
+}
+
+.login-box {
+    color: white;
+    background: #252525 !important;
+}
+
+.login-box-body {
+    color: white;
+    background: #252525 !important;
+}
+
+.login-box input, .login-box select {
+    color: white !important;
+}
+
+.login-box select option {
+    background: #000;
+}
+
+
+.login-box input::placeholder, .login-box select::placeholder {
+    color: #bababa !important;
+}
+
+.login-box a {
+    color: #ebad44 !important;
+}
+
+.login-logo img {
+    max-width: 70%;
+}
+
+@media (max-width: 770px) {
+    .login-logo img {
+        max-width: 80%;
+    }
+
+    .login-box {
+        width: 85%;
+    }
+}
+
+@media (max-width: 350px) {
+    .login-box {
+        width: 100%;
+    }
+}
+
+.login-box .btn-info{
+    background: none;
+    border-color: #fbae1c;
+}

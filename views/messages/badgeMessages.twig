@@ -1,0 +1,15 @@
+
+{% for badge in badgeMessages %}
+    {% if badge.type == 'error' %}
+        <div class="alert alert-danger" role="alert">{{ badge.message }}</div>
+    {% endif %}
+
+    {% if badge.type == 'ok' %}
+        <div class="alert alert-success" role="alert">{{ badge.message }}</div>
+    {% endif %}
+
+    {% if badge.type == 'warning' %}
+        <div class="alert alert-warning" role="alert">{{ badge.message }}</div>
+    {% endif %}
+{% endfor %}
+

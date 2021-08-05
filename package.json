@@ -1,0 +1,17 @@
+{
+  "name": "lend-front",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bignumber.js": "^9.0.1",
+    "favorito": "^0.1.9",
+    "node-fetch": "^2.6.1",
+    "node-shared-cache-x": "^1.7.1"
+  }
+}
