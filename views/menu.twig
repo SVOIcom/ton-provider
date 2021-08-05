@@ -1,6 +1,6 @@
 <ul class="sidebar-menu" data-widget="tree">
     <li class="nav-devider"></li>
-    <li class="header nav-small-cap">MAIN</li>
+  {#   <li class="header nav-small-cap">MAIN</li>
     <li class="{{ controller=="dashboard"?'active' }} {{ controller }}">
         <a href="/dashboard">
             <i class="icon-home"></i> <span>Admin Dashboard</span>
@@ -8,44 +8,26 @@
               <i class="fa fa-angle-right pull-right"></i>
             </span>
         </a>
-    </li>
+    </li> #}
 
-    <li class="header nav-small-cap">BUILDERS</li>
-    <li class=" {{ action=="kimchi"?'active' }} {{ action }}">
-        <a href="/builder/kimchi">
-            <i class="em em-kimchi"></i> <span>KIMCHI-style</span>
+
+    <li class=" {{ action=="earn"?'active' }} {{ action }}">
+        <a href="/index/earn">
+            <i class="em em-moneybag"></i> <span>Earn</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-right pull-right"></i>
+            </span>
+        </a>
+    </li>
+    <li class=" {{ action=="borrow"?'active' }} {{ action }}">
+        <a href="/index/borrow">
+            <i class="em em-money_with_wings"></i> <span>Borrow</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-right pull-right"></i>
             </span>
         </a>
     </li>
 
-    {% if user.type == 1 %}
-        <li class="header nav-small-cap">ADMIN</li>
-        <li class=" {{ controller=="index"?'active' }} {{ action }}">
-            <a href="/admin/index">
-                <i class="mdi mdi-settings"></i> <span>Admin Dashboard</span>
-                <span class="pull-right-container">
-              <i class="fa fa-angle-right pull-right"></i>
-            </span>
-            </a>
-        </li>
-        <li class=" {{ action=="users"?'active' }} {{ action }}">
-            <a href="/admin/users">
-                <i class="mdi mdi-account"></i> <span>Users</span>
-                <span class="pull-right-container">
-              <i class="fa fa-angle-right pull-right"></i>
-            </span>
-            </a>
-        </li>
-        <li class=" {{ action=="query"?'active' }} {{ action }}">
-            <a href="/admin/query">
-                <i class="mdi mdi-console"></i> <span>SQL Query</span>
-                <span class="pull-right-container">
-              <i class="fa fa-angle-right pull-right"></i>
-            </span>
-            </a>
-        </li>
-    {% endif %}
+
 
 </ul>

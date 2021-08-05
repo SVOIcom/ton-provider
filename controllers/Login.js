@@ -10,7 +10,7 @@ const {Crypto, Email} = require('favorito');
 
 const {registrationEmail} = require('../modules/Emails/Emails');
 
-const Users = require('../models/Users');
+//const Users = require('../models/Users');
 
 
 

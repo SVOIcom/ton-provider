@@ -17,7 +17,18 @@ const _App = require('./_App');
 class Index extends _App {
 
     async index() {
+        this.setTitle('TonLend');
+        return await this.render();
+    }
 
+    async earn() {
+        this.setTitle('Earn');
+        return await this.render();
+    }
+
+
+    async borrow() {
+        this.setTitle('Borrow');
         return await this.render();
     }
 
