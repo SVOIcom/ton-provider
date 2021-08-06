@@ -37,7 +37,7 @@
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
 
-                    <li class="search-box">
+                    <li class="search-box" style="display: none">
                         <a class="nav-link hidden-sm-down" href="javascript:void(0)"><i class="mdi mdi-magnify"></i></a>
                         <form class="app-search" style="display: none;">
                             <input type="text" class="form-control" placeholder="Search &amp; enter"> <a class="srh-btn"><i class="ti-close"></i></a>
@@ -99,24 +99,30 @@
                     <!-- User Account -->
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="/images/user5-128x128.jpg" class="user-image rounded-circle" alt="User Image">
+                           {#  <img src="/images/user5-128x128.jpg" class="user-image rounded-circle" alt="User Image">#}
+                            <i class="em em-link"></i>
+                            Connect wallet
                         </a>
                         <ul class="dropdown-menu scale-up">
                             <!-- User image -->
-                            <li class="user-header">
+                           {# <li class="user-header">
                                 <img src="/images/user5-128x128.jpg" class="float-left rounded-circle" alt="User Image">
 
                                 <p>
-                                    {{ user.name }}
+                                    {{ user.name }}dfgdfg
                                     <small class="mb-5"> {{ user.email }}</small>
                                    <!-- <a href="#" class="btn btn-danger btn-sm btn-rounded">View Profile</a> -->
                                 </p>
                             </li>
+                           #}
                             <!-- Menu Body -->
                             <li class="user-body">
                                 <div class="row no-gutters">
                                     <div class="col-12 text-left">
-                                        <a href="#"><i class="ion ion-person"></i> My Profile</a>
+                                        <a href="#"><img src="https://raw.githubusercontent.com/broxus/ton-wallet-crystal-browser-extension/master/src/popup/icons/icon128.png" style="max-width: 30px;"> TON Crystal wallet</a>
+                                    </div>
+                                    <div class="col-12 text-left">
+                                        <a href="#"> <img src="https://swap.block-chain.com/img/tonwallet.svg" style="max-width: 30px;"> TONWallet</a>
                                     </div>
                                     <!-- <div class="col-12 text-left">
                                         <a href="#"><i class="ion ion-email-unread"></i> Inbox</a>
