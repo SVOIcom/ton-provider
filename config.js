@@ -8,7 +8,7 @@ const config = {
     // FAVORITO
     bindPort: 3004,
     maxWorkers: 1,
-    sharedCacheName: 'explorerMainnet',
+    sharedCacheName: 'tonLend',
     indexController: "Index",
     databases: [
         /* {
@@ -26,20 +26,5 @@ const config = {
 }
 
 
-
-if (config.isSqllite) {
-    const dbConf = config.db;
-    dbConf.HOST = "localhost";
-    dbConf.dialect = 'sqlite';
-    dbConf.dialectOptions = {
-        multipleStatements: true
-    };
-    dbConf.storage = './test_db.db';
-}
-
-
-
-
-Object.freeze(config);
 
 module.exports = config;

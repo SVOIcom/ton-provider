@@ -24,7 +24,7 @@ class _App extends _Controller {
         this.layoutName = 'layout.twig';
 
         this.badgeMessages = [];
-        this.subTitle = 'TONLend';
+        this.subTitle = 'TONLend.com';
 
         this.controllerPageName = '';
         this.controllerIndexPageUrl = '';
