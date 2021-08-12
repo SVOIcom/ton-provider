@@ -18,6 +18,7 @@ class Index extends _App {
 
     async index() {
         this.setTitle('TonLend');
+       // return await this.render('earn.twig');
         return await this.render();
     }
 

@@ -18,13 +18,15 @@
         <a href="/" class="logo" style="height: 0">
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <b class="logo-mini">
-                <span class="light-logo"><img src="/logo.svg" alt="TonLend.com" style="height: 50px"></span>
-                <span class="dark-logo"><img src="/logo.svg" alt="TonLend.com" style="height: 50px"></span>
+              <!--  <span class="light-logo"><img src="/logo.svg" alt="TonLend.com" style="height: 50px"></span>
+                <span class="dark-logo"><img src="/logo.svg" alt="TonLend.com" style="height: 50px"></span> -->
+                <h1>TONLend</h1>
             </b>
             <!-- logo for regular state and mobile devices -->
             <span class="logo-lg">
-		  <img src="/logo.svg" alt="logo" class="TonLend.com" style="height: 50px">
-	  	  <img src="/logo.svg" alt="logo" class="TonLend.com" style="height: 50px">
+		 <!-- <img src="/logo.svg" alt="logo" class="TonLend.com" style="height: 50px">
+	  	  <img src="/logo.svg" alt="logo" class="TonLend.com" style="height: 50px"> -->
+                 <h1>TONLend</h1>
 	  </span>
         </a>
         <!-- Header Navbar -->
@@ -130,8 +132,10 @@
             {% include './messages/badgeMessages.twig' %}
 
           <!--  <div class="row"> -->
+            <div id="applicationContent">
                 {% block content %}
                 {% endblock %}
+            </div>
          <!--   </div> -->
         </section>
         <!-- /.content -->
@@ -381,7 +385,9 @@
 <script src="/assets/vendor_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 
 <!-- Crypto_Admin App -->
-<script src="/js/template.js"></script>
+<!--<script src="/js/template.js"></script> -->
+
+<script src="/app/App.mjs" type="module"></script>
 
 {#
 <!-- Crypto_Admin dashboard demo (This is only for demo purposes) -->

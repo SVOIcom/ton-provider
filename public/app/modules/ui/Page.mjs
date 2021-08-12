@@ -1,0 +1,77 @@
+/*
+  _______ ____  _   _ _                    _
+ |__   __/ __ \| \ | | |                  | |
+    | | | |  | |  \| | |     ___ _ __   __| |
+    | | | |  | | . ` | |    / _ \ '_ \ / _` |
+    | | | |__| | |\  | |___|  __/ | | | (_| |
+    |_|  \____/|_| \_|______\___|_| |_|\__,_|
+ */
+/**
+ * @name TONLend - DeFi lending for FreeTON
+ * @copyright SVOI.dev Labs - https://svoi.dev
+ * @license Apache-2.0
+ * @version 1.0
+ */
+
+import uiUtils from "./uiUtils.js";
+import utils from "../utils.mjs";
+
+class Page extends EventEmitter3 {
+    /**
+     *
+     * @param {string|number} id
+     * @param {PageStack} pageStack
+     * @param {{}} options
+     */
+    constructor(id = "page_" + utils.randomId(), pageStack = null, options = {}) {
+        super();
+        this.id = id;
+        this.pageStack = pageStack;
+        this.page = null;
+        this.options = {
+            ...options,
+            pageContainer: $('#applicationContent')
+        };
+    }
+
+    async load(action, controller = 'index') {
+        let loadedPage = await uiUtils.getPageContent(action, controller);
+        this.options.pageContainer.append(`<div id="${this.id}"> ${loadedPage.html()} </div>`)
+        this.page = $('#' + this.id);
+
+        return this;
+    }
+
+    /**
+     * Hide page
+     * @returns {Promise<void>}
+     */
+    async hide() {
+        console.log('HIDE PAGE', this.id,)
+        if(this.page) {
+            this.page.hide();
+        }
+    }
+
+    /**
+     * Show page
+     * @returns {Promise<void>}
+     */
+    async show() {
+        if(this.page) {
+            this.page.show();
+        }
+    }
+
+    /**
+     * Destroy page
+     * @returns {Promise<void>}
+     */
+    async destroy() {
+        if(this.page) {
+            this.page.remove();
+        }
+    }
+}
+
+export default Page;
