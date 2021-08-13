@@ -55,7 +55,7 @@ class PageStack extends EventEmitter3 {
         //Show new page
         await newPage.show();
 
-        return pageObj;
+        return {...pageObj, components: pageObj.page.components};
     }
 
     /**

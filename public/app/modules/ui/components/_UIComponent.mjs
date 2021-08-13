@@ -42,6 +42,14 @@ class _UIComponent extends EventEmitter3 {
     emit(...args) {
         return super.emit(...args);
     }
+
+    /**
+     * Destroy component
+     * @returns {Promise<void>}
+     */
+    async destroy() {
+        this.domObject.remove();
+    }
 }
 
 export default _UIComponent;

@@ -15,6 +15,7 @@
 
 import uiUtils from "./uiUtils.js";
 import utils from "../utils.mjs";
+import UIComponents from "./components/UIComponents.mjs";
 
 class Page extends EventEmitter3 {
     /**
@@ -32,14 +33,47 @@ class Page extends EventEmitter3 {
             ...options,
             pageContainer: $('#applicationContent')
         };
+
+        this.components = {};
+        this.componentsById = {};
     }
 
+    /**
+     * Load page from backend controller
+     * @param action
+     * @param controller
+     * @returns {Promise<Page>}
+     */
     async load(action, controller = 'index') {
         let loadedPage = await uiUtils.getPageContent(action, controller);
         this.options.pageContainer.append(`<div id="${this.id}"> ${loadedPage.html()} </div>`)
         this.page = $('#' + this.id);
-
+        await this.prepareUIComponents(this.page);
         return this;
+    }
+
+    /**
+     * Find and initialize page UI components
+     * @param pageContainer
+     * @returns {Promise<void>}
+     */
+    async prepareUIComponents(pageContainer) {
+        let pageComponents = $(pageContainer).find('fw-component');
+
+        for (let component of pageComponents) {
+            component = $(component);
+
+            let componentType = component.attr('type').toLowerCase();
+            if(UIComponents[componentType]) {
+                let newComponentId = componentType + '_' + utils.randomId();
+                let newComponent = new UIComponents[componentType](this.id, component, newComponentId);
+
+                let componentName = await newComponent.init();
+
+                this.componentsById[newComponentId] = newComponent;
+                this.components[componentName] = newComponent;
+            }
+        }
     }
 
     /**
@@ -47,7 +81,6 @@ class Page extends EventEmitter3 {
      * @returns {Promise<void>}
      */
     async hide() {
-        console.log('HIDE PAGE', this.id,)
         if(this.page) {
             this.page.hide();
         }

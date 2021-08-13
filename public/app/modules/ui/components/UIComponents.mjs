@@ -6,9 +6,6 @@
     | | | |__| | |\  | |___|  __/ | | | (_| |
     |_|  \____/|_| \_|______\___|_| |_|\__,_|
  */
-import Page from "./modules/ui/Page.mjs";
-import PageStack from "./modules/ui/PageStack.mjs";
-
 /**
  * @name TONLend - DeFi lending for FreeTON
  * @copyright SVOI.dev Labs - https://svoi.dev
@@ -16,12 +13,10 @@ import PageStack from "./modules/ui/PageStack.mjs";
  * @version 1.0
  */
 
-async function main() {
-    let pageStack = new PageStack($('#applicationContent'));
+import Button from "./Button.mjs";
 
-    window.testPage = await pageStack.loadPage('borrow');
-
+const UIComponents = {
+    button: Button
 }
 
-
-main();
+export default UIComponents;
