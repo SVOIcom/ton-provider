@@ -60,7 +60,8 @@ class TonWallet extends EventEmitter3 {
      */
     async start() {
 
-        await utils.wait();
+        //Simple wait for tonwallet initialization
+        await utils.wait(3000);
 
         //Detect is extraTON exists
         if(!window.getTONWeb) {
