@@ -1,18 +1,17 @@
-/*_______ ____  _   _  _____
- |__   __/ __ \| \ | |/ ____|
-    | | | |  | |  \| | (_____      ____ _ _ __
-    | | | |  | | . ` |\___ \ \ /\ / / _` | '_ \
-    | | | |__| | |\  |____) \ V  V / (_| | |_) |
-    |_|  \____/|_| \_|_____/ \_/\_/ \__,_| .__/
-                                         | |
-                                         |_| */
+/*
+  _______          _____                _     _
+ |__   __|        |  __ \              (_)   | |
+    | | ___  _ __ | |__) | __ _____   ___  __| | ___ _ __
+    | |/ _ \| '_ \|  ___/ '__/ _ \ \ / / |/ _` |/ _ \ '__|
+    | | (_) | | | | |   | | | (_) \ V /| | (_| |  __/ |
+    |_|\___/|_| |_|_|   |_|  \___/ \_/ |_|\__,_|\___|_|
+ */
 /**
- * @name TONSwap project - tonswap.com
+ * @name FreeTON connection provider
  * @copyright SVOI.dev Labs - https://svoi.dev
  * @license Apache-2.0
  * @version 1.0
  */
-
 import {} from '../thirdparty/eventemitter3.min.js';
 
 import TonWeb from "./providers/TonWeb/TonWeb.mjs";
