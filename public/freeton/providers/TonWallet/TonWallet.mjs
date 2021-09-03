@@ -54,6 +54,14 @@ class TonWallet extends EventEmitter3 {
             
         }
 
+        try {
+            window.TONClient.setWasmOptions = () => {
+                console.log('MODULE WITHOUT WASM OPTIONS');
+            };
+        }catch (e) {
+
+        }
+
 
         super();
         this.options = options;
