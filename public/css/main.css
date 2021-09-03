@@ -62,7 +62,52 @@
     }
 }
 
-.login-box .btn-info{
+.login-box .btn-info {
     background: none;
     border-color: #fbae1c;
+}
+
+.mobileLogo {
+    max-height: 55px;
+    height: auto;
+    width: 50vw;
+    filter: brightness(0.5);
+}
+
+@media (min-width: 470px) {
+    .mobileLogo {
+        width: 230px;
+    }
+}
+
+@media (max-width: 304px) {
+    .mobileLogo {
+        width: 53px;
+        height: 40px;
+        object-fit: cover;
+        object-position: left;
+    }
+}
+
+@media (max-width: 625px) {
+    .hiddenOnMobile {
+        display: none;
+    }
+}
+
+.loader {
+    width: 90%;
+    height: 100%;
+    background: #e5e5e5cc;
+    position: absolute;
+    z-index: 10000;
+    text-align: center;
+    margin-top: -42px;
+    margin-left: -20px;
+}
+
+@media (max-width: 765px) {
+    .loader {
+        width: 100%;
+    }
 }

@@ -37,6 +37,7 @@ const utils = {
         }
         return result;
     },
+    EMPTY_TON_ADDRESS:'0:0000000000000000000000000000000000000000000000000000000000000000',
     /**
      * Transfer hack ABI
      */
@@ -198,6 +199,22 @@ const utils = {
             }
         });
     },
+
+    /**
+     * Get JSON file
+     * @param {string} url
+     * @param {boolean} local
+     * @returns {Promise<any>}
+     */
+    async fetchJSON(url, local = false) {
+        if(url.includes('file:') || local) {
+            if(!url.includes('file:') && window._isApp) {
+                url = 'file:///android_asset/www' + url;
+            }
+            return await (await this.fetchLocal(url)).json();
+        }
+        return await ((await fetch(url))).json();
+    },
     /**
      * Hex encoded string to string
      * @param {string} hexString
@@ -232,6 +249,18 @@ const utils = {
      */
     randomId() {
         return Math.round(Math.random() * 1000000);
+    },
+
+    /**
+     * Simple async wait
+     * @param timeout
+     * @async
+     * @returns {Promise<unknown>}
+     */
+    wait: (timeout = 1000)=>{
+        return new Promise(resolve => {
+            setTimeout(resolve, timeout);
+        })
     }
 
 }

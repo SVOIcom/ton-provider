@@ -1,21 +1,30 @@
 {% extends layoutName %}
 
+{% block head %}
+    <meta property="og:image" content="/social.png">
+{% endblock %}
+
 {% block breadcrumbs %}
-    <section class="content-header">
+    {# <section class="content-header">
         <h1>
             Loading
             <small> </small>
         </h1>
 
-    </section>
+    </section> #}
 {% endblock %}
 
 {% block content %}
 
-    <div id="content">
+    <div id="loadingPlaceholder">
 
         Loading
     </div>
 
+    <script>
+        if('{{ referral }}'.length !== 0) {
+            localStorage.referral = '{{ referral }}';
+        }
+    </script>
 
 {% endblock %}

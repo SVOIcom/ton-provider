@@ -1,13 +1,15 @@
 /*
-  _______ ____  _   _ _                    _
- |__   __/ __ \| \ | | |                  | |
-    | | | |  | |  \| | |     ___ _ __   __| |
-    | | | |  | | . ` | |    / _ \ '_ \ / _` |
-    | | | |__| | |\  | |___|  __/ | | | (_| |
-    |_|  \____/|_| \_|______\___|_| |_|\__,_|
+  ______ _____
+ |  ____|  __ \
+ | |__  | |__) |_ _  __ _  ___
+ |  __| |  ___/ _` |/ _` |/ _ \
+ | |    | |  | (_| | (_| |  __/
+ |_|    |_|   \__,_|\__, |\___|
+                     __/ |
+                    |___/
  */
 /**
- * @name TONLend - DeFi lending for FreeTON
+ * @name FPage framework
  * @copyright SVOI.dev Labs - https://svoi.dev
  * @license Apache-2.0
  * @version 1.0
@@ -18,24 +20,48 @@ import utils from "../utils.mjs";
 
 class PageStack extends EventEmitter3 {
     constructor(pageContentHolder, options = {}) {
+        console.log('PageStack start',pageContentHolder);
         super();
         this.pageContentHolder = $(pageContentHolder);
+        this.pageContentHolder.html('');
         this.options = {...options, baseZindex: 1000};
         this.stack = [];
+
+        this.stackIndex = 0;
+
+        window.addEventListener('popstate', async (event) => {
+            if(this.stack.length !== 0) {
+
+                if(event.state?.stackIndex) {
+                    console.log(this.stackIndex, event.state.stackIndex, event);
+                    //If same stack length
+                    if(this.stackIndex > event.state.stackIndex) {
+                        await this.back();
+                    }
+                }
+            }
+        })
+
     }
+
 
     /**
      * Load page and add to page stack
-     * @param action
-     * @param controller
+     * @param {string} action
+     * @param {string} controller
+     * @param {object} runParams
      * @returns {Promise<{controller: string, action, page: Page, pageId: string, zIndex: number}>}
      */
-    async loadPage(action, controller = 'index') {
+    async loadPage(action, controller = 'index', runParams = {}) {
+
+        console.log('PageStack: Start load page');
+        console.time('load page');
+
         let pageId = "page_" + utils.randomId();
 
         let newPage = new Page(pageId, this, {pageContainer: this.pageContentHolder});
 
-        await newPage.load(action, controller);
+        await newPage.load(action, controller, runParams);
 
         //Hide previous page
         if(this.stack.length > 0) {
@@ -50,10 +76,16 @@ class PageStack extends EventEmitter3 {
             pageId,
             zIndex: this.stack.length + 1 + this.options.baseZindex
         };
+
         this.stack.push(pageObj);
 
         //Show new page
         await newPage.show();
+
+        this.stackIndex++;
+        window.history.pushState({stackIndex: this.stackIndex}, '', `/${controller}/${action}`);
+
+        console.timeEnd('load page');
 
         return {...pageObj, components: pageObj.page.components};
     }
@@ -63,14 +95,19 @@ class PageStack extends EventEmitter3 {
      * @returns {Promise<void>}
      */
     async back() {
-        let currentPage = this.stack.pop();
+        try {
+            let currentPage = this.stack.pop();
 
-        let prevPage = this.stack[this.stack.length - 1];
+            let prevPage = this.stack[this.stack.length - 1];
 
-        await currentPage.page.hide();
-        await currentPage.page.destroy();
+            await currentPage.page.hide();
+            await currentPage.page.destroy();
 
-        await prevPage.page.show();
+            this.stackIndex--;
+
+            await prevPage.page.show();
+        } catch (e) {
+        }
     }
 
 }

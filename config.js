@@ -8,6 +8,7 @@ const config = {
     // FAVORITO
     bindPort: 3004,
     maxWorkers: 1,
+    workerLifetime: 1200 * 1000, //20 mins
     sharedCacheName: 'tonLend',
     indexController: "Index",
     databases: [

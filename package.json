@@ -12,6 +12,10 @@
     "bignumber.js": "^9.0.1",
     "favorito": "^0.1.9",
     "node-fetch": "^2.6.1",
-    "node-shared-cache-x": "^1.7.1"
+    "node-shared-cache-x": "^1.7.1",
+    "ton-client-web-js": "^0.28.0",
+    "@tonclient/core": "^1.16.0",
+    "@tonclient/lib-node": "^1.16.0",
+    "freeton": "git+https://github.com/lailune/freeton.git"
   }
 }
