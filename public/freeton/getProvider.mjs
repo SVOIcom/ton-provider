@@ -38,11 +38,6 @@ const PROVIDERS_INSTANCES = {
     tonbackendweb: TonBackendWeb
 }
 
-try{
-    TONClient.setWasmOptions({binaryURL: 'https://tonconnect.svoi.dev/tonclient.wasm'});
-}catch (e) {
-    console.log(e);
-}
 
 
 /**

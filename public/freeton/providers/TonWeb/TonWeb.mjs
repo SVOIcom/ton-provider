@@ -69,7 +69,13 @@ class TonWeb extends EventEmitter3 {
 
         console.log('TonWeb provider used');
 
-        await import("https://tonconnect.svoi.dev/ton/main.js");
+        try{
+            await import("https://tonconnect.svoi.dev/ton/main.js");
+            TONClient.setWasmOptions({binaryURL: 'https://tonconnect.svoi.dev/tonclient.wasm'});
+        }catch (e) {
+            console.log(e);
+        }
+
 
         //Create "oldschool" ton provider
         this.ton = await TONClient.create({
