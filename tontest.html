@@ -12,16 +12,16 @@
     window.UTILS = UTILS;
 
 
-    const DEFAULT_WALLET = PROVIDERS.CrystalWallet;
+    const DEFAULT_WALLET = PROVIDERS.TonWeb;
 
     let TON = null;
-    try {
+    //try {
 
         //Initialize provider
-        TON = await getProvider({}, PROVIDERS.TonBackendWeb);
+        TON = await getProvider({}, DEFAULT_WALLET);
         await TON.requestPermissions();
         await TON.start();
-    } catch (e) {
+    /*} catch (e) {
         console.log(e);
         TON = await getProvider({
             network: 'main',
@@ -30,7 +30,7 @@
         await TON.requestPermissions();
         await TON.start();
 
-    }
+    }*/
     window.TON = TON;
 
     console.log('CURRENT WALLET', await TON.getWallet());

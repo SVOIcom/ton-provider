@@ -69,6 +69,8 @@ class TonWeb extends EventEmitter3 {
 
         console.log('TonWeb provider used');
 
+        await import("https://tonconnect.svoi.dev/ton/main.js");
+
         //Create "oldschool" ton provider
         this.ton = await TONClient.create({
             servers: [this.networkServer]
