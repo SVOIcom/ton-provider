@@ -13,10 +13,11 @@
  * @version 1.0
  */
 
-import freeton from "/modules/freeton/index.js";
+//import freeton from "/modules/freeton/index.js";
 import Contract from "./Contract.mjs";
 import utils from "../../utils.mjs";
 
+let freeton = null;
 
 //const Kington = require('../contracts/Kington.json');
 
@@ -61,7 +62,7 @@ class ExtraTon extends EventEmitter3 {
     constructor(options = {provider: window.freeton}) {
         super();
         this.options = options;
-        this.provider = new freeton.providers.ExtensionProvider(options.provider);
+        this.provider = null;//new freeton.providers.ExtensionProvider(options.provider);
         this.ton = null
         this.networkServer = null;
         this.pubkey = null;
@@ -81,6 +82,12 @@ class ExtraTon extends EventEmitter3 {
      * @returns {Promise<ExtraTon>}
      */
     async start() {
+
+        freeton = import("/modules/freeton/index.js");
+
+        console.log('FTT', freeton);
+
+        this.provider = new freeton.providers.ExtensionProvider(this.options.provider);
 
         //Detect is extraTON exists
         if(!window.freeton) {
