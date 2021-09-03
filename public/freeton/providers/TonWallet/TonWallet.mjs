@@ -55,10 +55,12 @@ class TonWallet extends EventEmitter3 {
         }*/
 
         try {
-            window.TONClient.setWasmOptions = () => {
-                console.log('MODULE WITHOUT WASM OPTIONS');
-            };
-        }catch (e) {
+            if(!window.TONClient.setWasmOptions) {
+                window.TONClient.setWasmOptions = () => {
+                    console.log('MODULE WITHOUT WASM OPTIONS');
+                };
+            }
+        } catch (e) {
 
         }
 
@@ -115,9 +117,9 @@ class TonWallet extends EventEmitter3 {
             servers: [(await this.provider.network.get()).network.url]
         });
 
-        try{
+        try {
             this.provider = await window.getTONWeb();
-        }catch (e) {
+        } catch (e) {
 
             console.log('Cant update tonWeb', e);
         }

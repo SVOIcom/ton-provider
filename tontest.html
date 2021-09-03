@@ -4,7 +4,24 @@
 </head>
 <body>
 
+<script>
+    console.log(window.TONClient);
+    Object.defineProperty(window, 'TONClient', {
+        get: function () {
+            return window._TONClient
+        }, set: (val) => {
+            window._TONClient = val;
+            console.log(TONClient)
+        }
+    });
+    console.log(window.TONClient);
+</script>
+
 <script type="module">
+
+
+
+
     import {default as getProvider, PROVIDERS, UTILS} from "https://tonconnect.svoi.dev/freeton/getProvider.mjs";
 
     window.getProvider = getProvider;
