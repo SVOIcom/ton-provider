@@ -117,7 +117,7 @@ class Contract {
                 this.ton = await getTONWeb();
 
                 console.log(this.ton);
-                console.log(ton);
+                //console.log(ton);
 
                 await this.ton.setServers([this.parent.networkServer]);
 
