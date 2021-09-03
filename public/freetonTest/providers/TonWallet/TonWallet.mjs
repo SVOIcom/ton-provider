@@ -92,13 +92,6 @@ class TonWallet extends EventEmitter3 {
             servers: [(await this.provider.network.get()).network.url]
         });
 
-        try{
-            this.provider = await window.getTONWeb();
-        }catch (e) {
-
-            console.log('Cant update tonWeb', e);
-        }
-
         //Changes watchdog timer
         const syncNetwork = async () => {
 

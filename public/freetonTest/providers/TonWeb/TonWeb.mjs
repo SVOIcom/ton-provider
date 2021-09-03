@@ -13,19 +13,22 @@
  * @version 1.0
  */
 
+
 import Contract from "./Contract.mjs";
+import Account, {SEED_LENGTH, TONMnemonicDictionary} from "./Account.mjs";
 import utils from "../../utils.mjs";
 import loadTonWeb from "../TonWebLoader.mjs";
 
+
 const NETWORKS = {
-    main: 'main2.ton.dev',
+    main: 'main.ton.dev',
     test: 'net.ton.dev'
 };
 
 const REVERSE_NETWORKS = {
     'main.ton.dev': 'main',
-    'main2.ton.dev': 'main',
-    'net.ton.dev': 'test'
+    'net.ton.dev': 'test',
+    'localhost': 'local'
 }
 
 const EXPLORERS = {
@@ -34,85 +37,59 @@ const EXPLORERS = {
     local: 'main.ton.live',
 }
 
-
 /**
  * extraTON provider class
  */
-class TonWallet extends EventEmitter3 {
-    constructor(options = {provider: window.freeton}) {
+class TonWeb extends EventEmitter3 {
+    constructor(options = {provider: null}) {
         super();
         this.options = options;
-        this.provider = null;
+        //this.provider = new freeton.providers.ExtensionProvider(options.provider);
         this.ton = null
-        this.networkServer = null;
+
         this.pubkey = null;
 
         this.walletContract = null;
         this.walletBalance = 0;
+        this.walletAddress = '';
 
-        this.network = 'main';
+        this.network = options.network ? options.network : 'test';
+        this.networkServer = options.networkServer ? options.networkServer : NETWORKS.test;
 
+        this.account = null;
+
+
+        this.watchdogTimer = null;
     }
 
     /**
      * Initialize extraTON provider
-     * @returns {Promise<ExtraTon>}
+     * @returns {Promise<TonWeb>}
      */
     async start() {
 
-        //Simple wait for tonwallet initialization
-        await utils.wait(100);
-        for (let i = 0; i < 5; i++) {
-            if(window.getTONWeb) {
-                break;
-            }
-            await utils.wait(1000);
-        }
-
-        //Detect is extraTON exists
-        if(!window.getTONWeb) {
-            throw new Error("TONWallet extension not found");
-        }
-
-        this.provider = await window.getTONWeb();
-
-        //Check extraTON connection
-        try {
-            await this.provider.extension.getVersion();
-        } catch (e) {
-            console.error(e);
-            throw new Error("Can't access to TONWallet");
-        }
+        console.log('TonWeb provider used');
 
         //Load TONClient
         await loadTonWeb();
 
+
         //Create "oldschool" ton provider
         this.ton = await TONClient.create({
-            servers: [(await this.provider.network.get()).network.url]
+            servers: [this.networkServer]
         });
-
-        try{
-            this.provider = await window.getTONWeb();
-        }catch (e) {
-
-            console.log('Cant update tonWeb', e);
-        }
 
         //Changes watchdog timer
         const syncNetwork = async () => {
 
             //Watch for network changed
-            let networkServer = (await this.provider.network.get()).network.url;
+            let networkServer = (await this.getNetwork()).server
             if(this.networkServer !== networkServer) {
                 if(this.networkServer !== null) {
                     this.emit('networkChanged', networkServer, this.networkServer, this,);
                 }
 
                 this.network = REVERSE_NETWORKS[networkServer];
-                if(!this.network) {
-                    this.network = networkServer;
-                }
                 this.networkServer = networkServer;
             }
 
@@ -128,7 +105,6 @@ class TonWallet extends EventEmitter3 {
             //Watch for wallet balance changed
             let wallet = await this.getWallet()
             let newBalance = wallet.balance;
-            //console.log(this.walletBalance, newBalance);
             if(this.walletBalance !== newBalance) {
                 this.emit('balanceChanged', newBalance, wallet, this,);
                 this.walletBalance = newBalance;
@@ -147,30 +123,42 @@ class TonWallet extends EventEmitter3 {
      * @param seed
      * @param seedLength
      * @param seedDict
-     * @returns {Promise<void>}
+     * @returns {Promise<Account>}
      */
     async acceptAccount(publicKey, seed, seedLength, seedDict) {
-        throw new Error('Accept account unsupported by TonWallet provider');
+        return this.account = new Account(this.ton, publicKey, seed, seedLength, seedDict);
     }
 
     /**
-     * Request permissions
-     * @param permissions
-     * @returns {Promise<boolean>}
+     * Accept wallet and load wallet contract
+     * @param address
+     * @returns {Promise<void>}
      */
-    async requestPermissions(permissions = []) {
-        //No permissions required
-        return true;
+    async acceptWallet(address) {
+        this.walletAddress = address;
+        this.walletContract = await this.loadContract('https://tonconnect.svoi.dev/contracts/abi/SafeMultisigWallet.abi.json', address);
     }
 
     /**
-     * Unauthorize connection
-     * @returns {Promise<*>}
+     * Change network
+     * @param {string} networkServer Network server address
+     * @returns {Promise<void>}
      */
-    async revokePermissions() {
-        return true;
-    }
+    async setNetwork(networkServer) {
+        this.networkServer = networkServer;
+        try {
+            this.network = REVERSE_NETWORKS[networkServer];
+        } catch (e) {
+            this.network = 'local';
+        }
 
+        //Recreate TON provider
+        this.ton = await TONClient.create({
+            servers: [this.networkServer]
+        });
+
+        this.emit('networkChanged', this.network, this,);
+    }
 
     /**
      * Get raw extraTON provider
@@ -200,9 +188,15 @@ class TonWallet extends EventEmitter3 {
      * Get keypair as possible
      * @returns {Promise<{public: *, secret: null}>}
      */
-    async getKeypair() {
-        let publicKey = (await this.provider.accounts.getAccount()).public;
-        return {public: publicKey, secret: null};
+    async getKeypair(privateRequest = false) {
+        //let publicKey = (await this.provider.getSigner()).publicKey;
+        if(this.account) {
+            return {
+                public: await this.account.getPublic(),
+                secret: privateRequest ? await this.account.getPrivate(privateRequest) : null
+            };
+        }
+        return {public: '000000000000000000000000000000000000000000000000000000000000000', secret: null};
     }
 
     /**
@@ -210,8 +204,7 @@ class TonWallet extends EventEmitter3 {
      * @returns {Promise<*>}
      */
     async getWallet() {
-        //let wallet = (await this.provider.getSigner()).wallet;
-        let wallet = (await this.provider.accounts.getWalletInfo());
+        /*let wallet = (await this.provider.getSigner()).wallet;
         //Wallet exists
         if(wallet.address) {
 
@@ -222,19 +215,9 @@ class TonWallet extends EventEmitter3 {
             wallet.contract = this.walletContract;
             wallet.balance = await this.walletContract.getBalance();
         }
-        return wallet;
-    }
+        return wallet;*/
 
-    /**
-     * Make wallet transfer
-     * @param to
-     * @param amount
-     * @param payload
-     * @param bounce
-     * @returns {Promise<*>}
-     */
-    async walletTransfer(to, amount, payload = '', bounce = true) {
-        return await this.provider.accounts.walletTransfer((await this.getKeypair()).public, (await this.getWallet()).address, to, amount, payload, bounce);
+        return {address: this.walletAddress, balance: 0, contract: this.walletContract}
     }
 
     /**
@@ -286,17 +269,36 @@ class TonWallet extends EventEmitter3 {
      */
     async sendTONWithPubkey(dest, amount, pubkey) {
 
-        let transferBody = utils.createPubkeyTVMCELL(pubkey);
-        return await (await this.getWallet()).transfer(dest, amount, false, transferBody);
+        let payload = utils.createPubkeyTVMCELL(pubkey);
+        let contract = (await this.getWallet()).contract;
+
+
+        return await contract.submitTransaction.deploy({
+            dest,
+            value: amount,
+            bounce: false,
+            allBalance: false,
+            payload
+        });
     }
 
     /**
-     * Return extension icon
-     * @returns {string}
+     * Request permissions
+     * @param permissions
+     * @returns {Promise<boolean>}
      */
-    getIconUrl() {
-        return 'https://swap.block-chain.com/img/tonwallet.svg'
+    async requestPermissions(permissions = []) {
+        //No permissions required
+        return true;
+    }
+
+    /**
+     * Unauthorize connection
+     * @returns {Promise<*>}
+     */
+    async revokePermissions() {
+        return true;
     }
 }
 
-export default TonWallet;
+export default TonWeb;
