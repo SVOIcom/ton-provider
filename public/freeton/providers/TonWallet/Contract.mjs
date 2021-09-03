@@ -6,6 +6,7 @@
     | | (_) | | | | |   | | | (_) \ V /| | (_| |  __/ |
     |_|\___/|_| |_|_|   |_|  \___/ \_/ |_|\__,_|\___|_|
  */
+
 /**
  * @name FreeTON connection provider
  * @copyright SVOI.dev Labs - https://svoi.dev
@@ -96,12 +97,33 @@ class Contract {
      * @returns {Promise<*>}
      */
     async getMethod(method, args = {}) {
-        return (await this.ton.contracts.runLocal({
-            abi: this.abi,
-            functionName: method,
-            input: args,
-            address: this.address
-        })).output;
+
+        try {
+            return (await this.ton.contracts.runLocal({
+                abi: this.abi,
+                functionName: method,
+                input: args,
+                address: this.address
+            })).output;
+        } catch (e) {
+
+            //WASM error, need to reload WASM
+            if(e.code === 6) {
+
+                //Reload TonWeb
+                this.ton = await getTONWeb();
+                await this.ton.setServers([this.parent.networkServer]);
+
+                return (await this.ton.contracts.runLocal({
+                    abi: this.abi,
+                    functionName: method,
+                    input: args,
+                    address: this.address
+                })).output;
+            }
+
+            throw e;
+        }
         //return await this.contract.functions[method].runGet(args);
     }
 
