@@ -1,33 +1,26 @@
 /*
-  _______ ____  _   _ _                    _
- |__   __/ __ \| \ | | |                  | |
-    | | | |  | |  \| | |     ___ _ __   __| |
-    | | | |  | | . ` | |    / _ \ '_ \ / _` |
-    | | | |__| | |\  | |___|  __/ | | | (_| |
-    |_|  \____/|_| \_|______\___|_| |_|\__,_|
+  _______          _____                _     _
+ |__   __|        |  __ \              (_)   | |
+    | | ___  _ __ | |__) | __ _____   ___  __| | ___ _ __
+    | |/ _ \| '_ \|  ___/ '__/ _ \ \ / / |/ _` |/ _ \ '__|
+    | | (_) | | | | |   | | | (_) \ V /| | (_| |  __/ |
+    |_|\___/|_| |_|_|   |_|  \___/ \_/ |_|\__,_|\___|_|
  */
 /**
- * @name TONLend - DeFi lending for FreeTON
+ * @name FreeTON connection provider
  * @copyright SVOI.dev Labs - https://svoi.dev
  * @license Apache-2.0
  * @version 1.0
  */
 
-import PageStack from "./modules/ui/PageStack.mjs";
-import utils from "./modules/utils.mjs";
-import {default as getProvider, PROVIDERS} from "./modules/freeton/getProvider.mjs";
+
+import {default as getProvider, PROVIDERS} from "/freeton/getProvider.mjs";
 import CONFIG from "./config.mjs";
-import {} from "./modules/misc/TonProviderUi.mjs";
-import {} from "./modules/misc/MiscUI.mjs";
+
 
 
 async function main() {
 
-
-    showLoading();
-
-
-    let pageStack = new PageStack($('#applicationContent'));
 
     /**
      * Initialize TON
@@ -47,8 +40,6 @@ async function main() {
 
         let wallet = await TON.getWallet();
 
-        $('#connectWalletButton').html(`<img src="${TON.getIconUrl()}" style="height: 30px;"> &nbsp;` + utils.shortenPubkey(wallet.address));
-
     } catch (e) {
         console.log(e);
         TON = await getProvider({
@@ -59,40 +50,41 @@ async function main() {
         await TON.start();
 
     }
-
-    $('#loadingPlaceholder').hide();
-
     window.TON = TON;
 
-
-    window.fpageLoadPage = async function (action, controller) {
-        if(window.screen.width < 764) {
-            $('.sidebar-toggle').click();
-        }
-        showLoading();
-        await pageStack.loadPage(action, controller, {punks: window.punks, TON, CONFIG});
-        hideLoading();
+    /**
+     * Disconnect wallets
+     * @returns {Promise<void>}
+     */
+    window.disconnectWallet = async function () {
+        delete localStorage.wallet;
+        await TON.revokePermissions();
+        window.location.href = window.location.href;
     }
 
-
-    if(window.application) {
-        if(window.application.action) {
-            await pageStack.loadPage(window.application.action, window.application.controller, {
-                ...window.application,
-                TON,
-                CONFIG
-            });
-
-            hideLoading();
-        }
-    } else {
-
-        window.testPage = await pageStack.loadPage('borrow', 'index', {TON, CONFIG});
-
-        hideLoading();
+    /**
+     * Connect crystalWallet
+     * @returns {Promise<void>}
+     */
+    window.connectCrystalWallet = async function () {
+        localStorage.wallet = PROVIDERS.CrystalWallet;
+        window.location.href = window.location.href;
     }
 
-    $('#applicationContent').show();
+    /**
+     * Connect TonWallet
+     * @returns {Promise<void>}
+     */
+    window.connectTonWallet = async function () {
+        localStorage.wallet = PROVIDERS.TonWallet;
+        window.location.href = window.location.href;
+    }
+
+    window.connectTonWeb = async function () {
+        localStorage.wallet = PROVIDERS.TonWeb;
+        window.location.href = window.location.href;
+    }
+
 
 }
 

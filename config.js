@@ -6,10 +6,10 @@ const config = {
 
 
     // FAVORITO
-    bindPort: 3004,
+    bindPort: 3011,
     maxWorkers: 1,
     workerLifetime: 1200 * 1000, //20 mins
-    sharedCacheName: 'tonLend',
+    sharedCacheName: 'tonConnect',
     indexController: "Index",
     databases: [
         /* {
