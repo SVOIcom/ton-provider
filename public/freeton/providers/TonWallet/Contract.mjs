@@ -13,6 +13,8 @@
  * @license Apache-2.0
  * @version 1.0
  */
+import utils from "../../utils.mjs";
+
 /**
  * Contract class
  */
@@ -110,6 +112,7 @@ class Contract {
             //WASM error, need to reload WASM
             if(e.code === 6) {
                 console.log('DETECTED WASM BUG. START WORKAROUND ', e);
+                await utils.wait(3000);
                 //Reload TonWeb
                 this.ton = await getTONWeb();
                 await this.ton.setServers([this.parent.networkServer]);
