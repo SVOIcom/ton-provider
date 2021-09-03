@@ -13,6 +13,8 @@
  * @version 1.0
  */
 
+import jQuery from "../jQuery.mjs";
+
 /**
  * Contract class
  */
@@ -93,6 +95,8 @@ class Contract {
      * @returns {Promise<*>}
      */
     async getMethod(method, args = {}) {
+        let $ = jQuery;
+        console.log('New jquery', $);
         let postResult = await $.post('/TonBackendProvider/runLocal/' +
             this.parent.networkServer + "/" + this.address + '/' + method, {
                 abi: JSON.stringify(this.abi),
