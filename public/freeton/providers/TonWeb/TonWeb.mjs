@@ -73,12 +73,15 @@ class TonWeb extends EventEmitter3 {
 
         window.fetch = (...args)=>{
             console.log('Fetch call', args);
+            if(args[0] === '/tonclient.wasm'){
+                args[0] = 'https://tonconnect.svoi.dev/tonclient.wasm';
+            }
             return _fetch(...args)
         }
         try{
            let TONClient = await import("https://tonconnect.svoi.dev/ton/main.js");
            console.log('TONCLIENT', TONClient);
-            TONClient.setWasmOptions({binaryURL: 'https://tonconnect.svoi.dev/tonclient.wasm'});
+          //  TONClient.setWasmOptions({binaryURL: 'https://tonconnect.svoi.dev/tonclient.wasm'});
         }catch (e) {
             console.log(e);
         }
