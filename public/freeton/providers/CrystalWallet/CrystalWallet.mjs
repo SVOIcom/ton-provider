@@ -16,6 +16,7 @@
 
 import Contract from "./Contract.mjs";
 import ton, {hasTonProvider} from './ton-inpage-provider/dist/index.js';
+import loadTonWeb from "../TonWebLoader.mjs";
 
 const NETWORKS = {
     main: 'main2.ton.dev',
@@ -99,6 +100,9 @@ class CrystalWallet extends EventEmitter3 {
        // console.log((await ton.getProviderState()));
 
         this.networkServer = await this._getCurrentNetwork();
+
+        //Load TONClient
+        await loadTonWeb();
 
         //Create "oldschool" ton provider
         this.ton = await TONClient.create({

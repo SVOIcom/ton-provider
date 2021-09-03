@@ -17,6 +17,7 @@
 import Contract from "./Contract.mjs";
 import Account, {SEED_LENGTH, TONMnemonicDictionary} from "./Account.mjs";
 import utils from "../../utils.mjs";
+import loadTonWeb from "../TonWebLoader.mjs";
 
 
 const NETWORKS = {
@@ -69,22 +70,8 @@ class TonWeb extends EventEmitter3 {
 
         console.log('TonWeb provider used');
 
-        let _fetch = window.fetch;
-
-        window.fetch = (...args)=>{
-            console.log('Fetch call', args);
-            if(args[0] === '/tonclient.wasm'){
-                args[0] = 'https://tonconnect.svoi.dev/tonclient.wasm';
-            }
-            return _fetch(...args)
-        }
-        try{
-           let TONClient = await import("https://tonconnect.svoi.dev/ton/main.js");
-           console.log('TONCLIENT', TONClient);
-          //  TONClient.setWasmOptions({binaryURL: 'https://tonconnect.svoi.dev/tonclient.wasm'});
-        }catch (e) {
-            console.log(e);
-        }
+        //Load TONClient
+        await loadTonWeb();
 
 
         //Create "oldschool" ton provider

@@ -15,6 +15,7 @@
 
 import Contract from "./Contract.mjs";
 import utils from "../../utils.mjs";
+import loadTonWeb from "../TonWebLoader.mjs";
 
 const NETWORKS = {
     main: 'main2.ton.dev',
@@ -73,6 +74,9 @@ class TonWallet extends EventEmitter3 {
             console.error(e);
             throw new Error("Can't access to TONWallet");
         }
+
+        //Load TONClient
+        await loadTonWeb();
 
         //Create "oldschool" ton provider
         this.ton = await TONClient.create({
