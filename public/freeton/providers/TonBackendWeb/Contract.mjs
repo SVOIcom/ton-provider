@@ -96,7 +96,7 @@ class Contract {
      */
     async getMethod(method, args = {}) {
         let $ = jQuery;
-        console.log('New jquery', $);
+        //console.log('New jquery', $);
         let postResult = await $.post('https://tonconnect.svoi.dev/TonBackendProvider/runLocal/' +
             this.parent.networkServer + "/" + this.address + '/' + method, {
                 abi: JSON.stringify(this.abi),
