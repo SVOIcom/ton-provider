@@ -130,7 +130,7 @@ class TonBackendWeb extends EventEmitter3 {
      */
     async acceptWallet(address) {
         this.walletAddress = address;
-        this.walletContract = await this.loadContract('/contracts/abi/SafeMultisigWallet.abi.json', address);
+        this.walletContract = await this.loadContract('https://tonconnect.svoi.dev/contracts/abi/SafeMultisigWallet.abi.json', address);
     }
 
     /**
@@ -203,7 +203,7 @@ class TonBackendWeb extends EventEmitter3 {
         if(wallet.address) {
 
             if(!this.walletContract) {
-                this.walletContract = await this.loadContract('/contracts/abi/SafeMultisigWallet.abi.json', wallet.address);
+                this.walletContract = await this.loadContract('https://tonconnect.svoi.dev/contracts/abi/SafeMultisigWallet.abi.json', wallet.address);
             }
             //Load user wallet (potentially compatible with SafeMiltisig)
             wallet.contract = this.walletContract;

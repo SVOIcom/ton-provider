@@ -1,0 +1,361 @@
+{
+	"ABI version": 2,
+	"header": ["pubkey", "time", "expire"],
+	"functions": [
+		{
+			"name": "constructor",
+			"inputs": [
+				{"name":"rootContract","type":"address"},
+				{"name":"tip3Deployer_","type":"address"},
+				{"name":"swapPairCodeVersion_","type":"uint32"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "getWalletAddressCallback",
+			"inputs": [
+				{"name":"walletAddress","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "_receiveTIP3Details",
+			"inputs": [
+				{"components":[{"name":"name","type":"bytes"},{"name":"symbol","type":"bytes"},{"name":"decimals","type":"uint8"},{"name":"wallet_code","type":"cell"},{"name":"root_public_key","type":"uint256"},{"name":"root_owner_address","type":"address"},{"name":"total_supply","type":"uint128"}],"name":"rtcd","type":"tuple"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "_prepareDataForTIP3Deploy",
+			"inputs": [
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "_deployTIP3LpToken",
+			"inputs": [
+				{"name":"name","type":"bytes"},
+				{"name":"symbol","type":"bytes"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "_deployTIP3LpTokenCallback",
+			"inputs": [
+				{"name":"tip3RootContract","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "getPairInfo",
+			"inputs": [
+				{"name":"_answer_id","type":"uint32"}
+			],
+			"outputs": [
+				{"components":[{"name":"rootContract","type":"address"},{"name":"tokenRoot1","type":"address"},{"name":"tokenRoot2","type":"address"},{"name":"lpTokenRoot","type":"address"},{"name":"tokenWallet1","type":"address"},{"name":"tokenWallet2","type":"address"},{"name":"lpTokenWallet","type":"address"},{"name":"deployTimestamp","type":"uint256"},{"name":"swapPairAddress","type":"address"},{"name":"uniqueId","type":"uint256"},{"name":"swapPairCodeVersion","type":"uint32"},{"name":"swapPairLPTokenName","type":"bytes"}],"name":"info","type":"tuple"}
+			]
+		},
+		{
+			"name": "getExchangeRate",
+			"inputs": [
+				{"name":"_answer_id","type":"uint32"},
+				{"name":"swappableTokenRoot","type":"address"},
+				{"name":"swappableTokenAmount","type":"uint128"}
+			],
+			"outputs": [
+				{"components":[{"name":"swappableTokenAmount","type":"uint128"},{"name":"targetTokenAmount","type":"uint128"},{"name":"fee","type":"uint128"}],"name":"value0","type":"tuple"}
+			]
+		},
+		{
+			"name": "getCurrentExchangeRate",
+			"inputs": [
+				{"name":"_answer_id","type":"uint32"}
+			],
+			"outputs": [
+				{"components":[{"name":"swapPairAddress","type":"address"},{"name":"lp1","type":"uint128"},{"name":"lp2","type":"uint128"},{"name":"lpTokensMinted","type":"uint256"}],"name":"lpi","type":"tuple"}
+			]
+		},
+		{
+			"name": "getProvidingLiquidityInfo",
+			"inputs": [
+				{"name":"maxFirstTokenAmount","type":"uint128"},
+				{"name":"maxSecondTokenAmount","type":"uint128"}
+			],
+			"outputs": [
+				{"name":"providedFirstTokenAmount","type":"uint128"},
+				{"name":"providedSecondTokenAmount","type":"uint128"}
+			]
+		},
+		{
+			"name": "getWithdrawingLiquidityInfo",
+			"inputs": [
+				{"name":"liquidityTokensAmount","type":"uint256"}
+			],
+			"outputs": [
+				{"name":"withdrawedFirstTokenAmount","type":"uint128"},
+				{"name":"withdrawedSecondTokenAmount","type":"uint128"}
+			]
+		},
+		{
+			"name": "getAnotherTokenProvidingAmount",
+			"inputs": [
+				{"name":"providingTokenRoot","type":"address"},
+				{"name":"providingTokenAmount","type":"uint128"}
+			],
+			"outputs": [
+				{"name":"anotherTokenAmount","type":"uint128"}
+			]
+		},
+		{
+			"name": "_withdrawTokensFromLP",
+			"inputs": [
+				{"name":"tokenAmount","type":"uint128"},
+				{"components":[{"name":"tr1","type":"address"},{"name":"tw1","type":"address"},{"name":"tr2","type":"address"},{"name":"tw2","type":"address"}],"name":"lpwi","type":"tuple"},
+				{"name":"walletAddress","type":"address"},
+				{"name":"tokensBurnt","type":"bool"},
+				{"name":"send_gas_to","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "_withdrawOneTokenFromLP",
+			"inputs": [
+				{"name":"tokenAmount","type":"uint128"},
+				{"name":"tokenRoot","type":"address"},
+				{"name":"tokenWallet","type":"address"},
+				{"name":"lpWalletAddress","type":"address"},
+				{"name":"tokensBurnt","type":"bool"},
+				{"name":"send_gas_to","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "_transferTokensToWallets",
+			"inputs": [
+				{"components":[{"name":"tr1","type":"address"},{"name":"tw1","type":"address"},{"name":"tr2","type":"address"},{"name":"tw2","type":"address"}],"name":"lpwi","type":"tuple"},
+				{"name":"t1Amount","type":"uint128"},
+				{"name":"t2Amount","type":"uint128"},
+				{"name":"send_gas_to","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "tokensReceivedCallback",
+			"inputs": [
+				{"name":"token_wallet","type":"address"},
+				{"name":"token_root","type":"address"},
+				{"name":"amount","type":"uint128"},
+				{"name":"sender_public_key","type":"uint256"},
+				{"name":"sender_address","type":"address"},
+				{"name":"sender_wallet","type":"address"},
+				{"name":"original_gas_to","type":"address"},
+				{"name":"updated_balance","type":"uint128"},
+				{"name":"payload","type":"cell"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "burnCallback",
+			"inputs": [
+				{"name":"tokensBurnt","type":"uint128"},
+				{"name":"payload","type":"cell"},
+				{"name":"sender_public_key","type":"uint256"},
+				{"name":"sender_address","type":"address"},
+				{"name":"wallet_address","type":"address"},
+				{"name":"send_gas_to","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "_externalSwap",
+			"inputs": [
+				{"name":"args","type":"cell"},
+				{"name":"tokenReceiver","type":"address"},
+				{"name":"token_root","type":"address"},
+				{"name":"amount","type":"uint128"},
+				{"name":"sender_wallet","type":"address"},
+				{"name":"original_gas_to","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "_externalProvideLiquidity",
+			"inputs": [
+				{"name":"args","type":"cell"},
+				{"name":"tokenReceiver","type":"address"},
+				{"name":"sender_public_key","type":"uint256"},
+				{"name":"amount","type":"uint128"},
+				{"name":"sender_wallet","type":"address"},
+				{"name":"sender_address","type":"address"},
+				{"name":"original_gas_to","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "_externalProvideLiquidityOneToken",
+			"inputs": [
+				{"name":"args","type":"cell"},
+				{"name":"tokenRoot","type":"address"},
+				{"name":"tokenReceiver","type":"address"},
+				{"name":"sender_public_key","type":"uint256"},
+				{"name":"amount","type":"uint128"},
+				{"name":"sender_wallet","type":"address"},
+				{"name":"sender_address","type":"address"},
+				{"name":"original_gas_to","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "_externalWithdrawLiquidity",
+			"inputs": [
+				{"name":"args","type":"cell"},
+				{"name":"amount","type":"uint128"},
+				{"name":"sender_wallet","type":"address"},
+				{"name":"original_gas_to","type":"address"},
+				{"name":"tokensBurnt","type":"bool"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "_externalWithdrawLiquidityOneToken",
+			"inputs": [
+				{"name":"args","type":"cell"},
+				{"name":"amount","type":"uint128"},
+				{"name":"sender_wallet","type":"address"},
+				{"name":"original_gas_to","type":"address"},
+				{"name":"tokensBurnt","type":"bool"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "createSwapPayload",
+			"inputs": [
+				{"name":"sendTokensTo","type":"address"}
+			],
+			"outputs": [
+				{"name":"value0","type":"cell"}
+			]
+		},
+		{
+			"name": "createProvideLiquidityPayload",
+			"inputs": [
+				{"name":"tip3Address","type":"address"}
+			],
+			"outputs": [
+				{"name":"value0","type":"cell"}
+			]
+		},
+		{
+			"name": "createProvideLiquidityOneTokenPayload",
+			"inputs": [
+				{"name":"tip3Address","type":"address"}
+			],
+			"outputs": [
+				{"name":"value0","type":"cell"}
+			]
+		},
+		{
+			"name": "createWithdrawLiquidityPayload",
+			"inputs": [
+				{"name":"tokenRoot1","type":"address"},
+				{"name":"tokenWallet1","type":"address"},
+				{"name":"tokenRoot2","type":"address"},
+				{"name":"tokenWallet2","type":"address"}
+			],
+			"outputs": [
+				{"name":"value0","type":"cell"}
+			]
+		},
+		{
+			"name": "createWithdrawLiquidityOneTokenPayload",
+			"inputs": [
+				{"name":"tokenRoot","type":"address"},
+				{"name":"userWallet","type":"address"}
+			],
+			"outputs": [
+				{"name":"value0","type":"cell"}
+			]
+		},
+		{
+			"name": "updateSwapPairCode",
+			"inputs": [
+				{"name":"newCode","type":"cell"},
+				{"name":"newCodeVersion","type":"uint32"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "checkIfSwapPairUpgradeRequired",
+			"inputs": [
+				{"name":"newCodeVersion","type":"uint32"}
+			],
+			"outputs": [
+				{"name":"value0","type":"bool"}
+			]
+		}
+	],
+	"data": [
+		{"key":1,"name":"token1","type":"address"},
+		{"key":2,"name":"token2","type":"address"},
+		{"key":3,"name":"swapPairID","type":"uint256"}
+	],
+	"events": [
+		{
+			"name": "Swap",
+			"inputs": [
+				{"name":"providedTokenRoot","type":"address"},
+				{"name":"targetTokenRoot","type":"address"},
+				{"name":"tokensUsedForSwap","type":"uint128"},
+				{"name":"tokensReceived","type":"uint128"},
+				{"name":"fee","type":"uint128"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "ProvideLiquidity",
+			"inputs": [
+				{"name":"liquidityTokensAmount","type":"uint256"},
+				{"name":"firstTokenAmount","type":"uint128"},
+				{"name":"secondTokenAmount","type":"uint128"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "WithdrawLiquidity",
+			"inputs": [
+				{"name":"liquidityTokensAmount","type":"uint256"},
+				{"name":"firstTokenAmount","type":"uint128"},
+				{"name":"secondTokenAmount","type":"uint128"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "UpdateSwapPairCode",
+			"inputs": [
+				{"name":"newCodeVersion","type":"uint32"}
+			],
+			"outputs": [
+			]
+		}
+	]
+}

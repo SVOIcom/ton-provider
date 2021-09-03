@@ -1,0 +1,84 @@
+{
+  "networks": {
+    "2": {
+      "address": "0:bbab3302726f352371676aa889ea69e155e385c3e3e4c9fb85a5c3b64ccca60c"
+    }
+  },
+  "abi": {
+    "ABI version": 2,
+    "header": [
+      "time"
+    ],
+    "functions": [
+      {
+        "name": "constructor",
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "name": "addMessage",
+        "inputs": [
+          {
+            "name": "message",
+            "type": "bytes"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "name": "getMessages",
+        "inputs": [],
+        "outputs": [
+          {
+            "components": [
+              {
+                "name": "balance",
+                "type": "uint256"
+              },
+              {
+                "name": "message",
+                "type": "bytes"
+              },
+              {
+                "name": "count",
+                "type": "uint16"
+              },
+              {
+                "name": "lastPayAt",
+                "type": "uint256"
+              }
+            ],
+            "name": "value0",
+            "type": "map(uint256,tuple)"
+          }
+        ]
+      },
+      {
+        "name": "withdraw",
+        "inputs": [
+          {
+            "name": "destinationAddress",
+            "type": "address"
+          },
+          {
+            "name": "amount",
+            "type": "uint128"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "name": "remove",
+        "inputs": [
+          {
+            "name": "id",
+            "type": "uint256"
+          }
+        ],
+        "outputs": []
+      }
+    ],
+    "data": [],
+    "events": []
+  }
+}

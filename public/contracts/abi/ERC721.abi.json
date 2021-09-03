@@ -1,0 +1,178 @@
+{
+	"ABI version": 2,
+	"header": ["time", "expire"],
+	"functions": [{
+		"name": "constructor",
+		"inputs": [
+			{ "name": "owner_", "type": "address" }
+		],
+		"outputs": []
+	},
+		{
+			"name": "mintToken",
+			"inputs": [
+				{ "name": "referal", "type": "address" }
+			],
+			"outputs": []
+		},
+		{
+			"name": "transferTokenTo",
+			"inputs": [
+				{ "name": "tokenID", "type": "uint32" },
+				{ "name": "receiver", "type": "address" }
+			],
+			"outputs": []
+		},
+		{
+			"name": "setForSale",
+			"inputs": [
+				{ "name": "tokenID", "type": "uint32" },
+				{ "name": "tokenPrice", "type": "uint128" }
+			],
+			"outputs": []
+		},
+		{
+			"name": "setAsNotForSale",
+			"inputs": [
+				{ "name": "tokenID", "type": "uint32" }
+			],
+			"outputs": []
+		},
+		{
+			"name": "buyToken",
+			"inputs": [
+				{ "name": "tokenID", "type": "uint32" }
+			],
+			"outputs": []
+		},
+		{
+			"name": "getOwnerOf",
+			"inputs": [
+				{ "name": "_answer_id", "type": "uint32" },
+				{ "name": "tokenID", "type": "uint32" }
+			],
+			"outputs": [
+				{ "name": "value0", "type": "address" }
+			]
+		},
+		{
+			"name": "getAllTokensForSale",
+			"inputs": [
+				{ "name": "_answer_id", "type": "uint32" }
+			],
+			"outputs": [
+				{ "components": [{ "name": "price", "type": "uint128" }, { "name": "owner", "type": "address" }], "name": "value0", "type": "map(uint32,tuple)" }
+			]
+		},
+		{
+			"name": "getSellInfo",
+			"inputs": [
+				{ "name": "_answer_id", "type": "uint32" },
+				{ "name": "tokenID", "type": "uint32" }
+			],
+			"outputs": [
+				{ "components": [{ "name": "price", "type": "uint128" }, { "name": "owner", "type": "address" }], "name": "value0", "type": "tuple" }
+			]
+		},
+		{
+			"name": "getAllNfts",
+			"inputs": [
+				{ "name": "_answer_id", "type": "uint32" }
+			],
+			"outputs": [
+				{ "components": [{ "name": "id", "type": "uint32" }, { "name": "punkType", "type": "bytes" }, { "name": "attributes", "type": "bytes" }, { "name": "rank", "type": "uint32" }], "name": "value0", "type": "map(uint32,tuple)" }
+			]
+		},
+		{
+			"name": "getUserNfts",
+			"inputs": [
+				{ "name": "_answer_id", "type": "uint32" },
+				{ "name": "collector", "type": "address" }
+			],
+			"outputs": [
+				{ "name": "value0", "type": "map(uint32,bool)" }
+			]
+		},
+		{
+			"name": "getNft",
+			"inputs": [
+				{ "name": "_answer_id", "type": "uint32" },
+				{ "name": "nftID", "type": "uint32" }
+			],
+			"outputs": [
+				{ "components": [{ "name": "id", "type": "uint32" }, { "name": "punkType", "type": "bytes" }, { "name": "attributes", "type": "bytes" }, { "name": "rank", "type": "uint32" }], "name": "value0", "type": "tuple" },
+				{ "name": "collector", "type": "address" }
+			]
+		},
+		{
+			"name": "getTokenSupplyInfo",
+			"inputs": [
+				{ "name": "_answer_id", "type": "uint32" }
+			],
+			"outputs": [
+				{ "name": "mintedTokens", "type": "uint32" },
+				{ "name": "notMintedTokens", "type": "uint32" }
+			]
+		},
+		{
+			"name": "getTokenPrice",
+			"inputs": [
+				{ "name": "_answer_id", "type": "uint32" }
+			],
+			"outputs": [
+				{ "name": "value0", "type": "uint128" }
+			]
+		},
+		{
+			"name": "getTokenSellPrice",
+			"inputs": [
+				{ "name": "_answer_id", "type": "uint32" }
+			],
+			"outputs": [
+				{ "name": "value0", "type": "uint128" }
+			]
+		},
+		{
+			"name": "getReferalParams",
+			"inputs": [
+				{ "name": "_answer_id", "type": "uint32" }
+			],
+			"outputs": [
+				{ "name": "value0", "type": "uint128" },
+				{ "name": "value1", "type": "uint128" }
+			]
+		}
+	],
+	"data": [],
+	"events": [{
+		"name": "PunkMinted",
+		"inputs": [
+			{ "name": "punkId", "type": "uint32" },
+			{ "name": "mintedBy", "type": "address" },
+			{ "name": "price", "type": "uint128" },
+			{ "name": "mintTime", "type": "uint64" }
+		],
+		"outputs": []
+	},
+		{
+			"name": "PunkTransferred",
+			"inputs": [
+				{ "name": "punkId", "type": "uint32" },
+				{ "name": "from", "type": "address" },
+				{ "name": "to", "type": "address" },
+				{ "name": "transferTime", "type": "uint64" }
+			],
+			"outputs": []
+		},
+		{
+			"name": "PunkSold",
+			"inputs": [
+				{ "name": "punkId", "type": "uint32" },
+				{ "name": "from", "type": "address" },
+				{ "name": "to", "type": "address" },
+				{ "name": "sellTime", "type": "uint64" }
+			],
+			"outputs": []
+		}
+	]
+}
