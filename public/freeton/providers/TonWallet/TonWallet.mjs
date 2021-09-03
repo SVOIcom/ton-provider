@@ -61,7 +61,13 @@ class TonWallet extends EventEmitter3 {
     async start() {
 
         //Simple wait for tonwallet initialization
-        await utils.wait(3000);
+        await utils.wait(100);
+        for (let i = 0; i < 5; i++) {
+            if(window.getTONWeb) {
+                break;
+            }
+            await utils.wait(1000);
+        }
 
         //Detect is extraTON exists
         if(!window.getTONWeb) {
@@ -145,7 +151,7 @@ class TonWallet extends EventEmitter3 {
      * @param permissions
      * @returns {Promise<boolean>}
      */
-    async requestPermissions(permissions = []){
+    async requestPermissions(permissions = []) {
         //No permissions required
         return true;
     }
@@ -281,7 +287,7 @@ class TonWallet extends EventEmitter3 {
      * Return extension icon
      * @returns {string}
      */
-    getIconUrl(){
+    getIconUrl() {
         return 'https://swap.block-chain.com/img/tonwallet.svg'
     }
 }
