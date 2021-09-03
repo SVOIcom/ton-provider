@@ -1,7 +1,6 @@
 async function loadTonWeb(){
     let _fetch = window.fetch;
     window.fetch = (...args)=>{
-        console.log('Fetch call', args);
         if(args[0] === '/tonclient.wasm'){
             console.log('TonWebModule: wasm fall calling detected');
             args[0] = 'https://tonconnect.svoi.dev/tonclient.wasm';

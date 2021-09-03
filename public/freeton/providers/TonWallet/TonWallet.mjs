@@ -60,6 +60,8 @@ class TonWallet extends EventEmitter3 {
      */
     async start() {
 
+        await utils.wait();
+
         //Detect is extraTON exists
         if(!window.getTONWeb) {
             throw new Error("TONWallet extension not found");
