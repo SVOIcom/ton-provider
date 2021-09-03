@@ -35,3 +35,7 @@ import {default as getProvider, PROVIDERS, UTILS} from "https://tonconnect.svoi.
 
     console.log('CURRENT WALLET', await TON.getWallet());
 ```
+
+## Info
+
+Developed with ❤️ by SVOI.dev Team https://svoi.dev
