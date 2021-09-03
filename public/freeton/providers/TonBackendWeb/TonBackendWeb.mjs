@@ -69,9 +69,9 @@ class TonBackendWeb extends EventEmitter3 {
         console.log('TonWeb provider used');
 
         //Create "oldschool" ton provider
-        this.ton = await TONClient.create({
+       /* this.ton = await TONClient.create({
             servers: [this.networkServer]
-        });
+        });*/
 
         //Changes watchdog timer
         const syncNetwork = async () => {
@@ -147,9 +147,9 @@ class TonBackendWeb extends EventEmitter3 {
         }
 
         //Recreate TON provider
-        this.ton = await TONClient.create({
+       /* this.ton = await TONClient.create({
             servers: [this.networkServer]
-        });
+        });*/
 
         this.emit('networkChanged', this.network, this,);
     }
