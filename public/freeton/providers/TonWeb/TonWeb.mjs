@@ -69,6 +69,12 @@ class TonWeb extends EventEmitter3 {
 
         console.log('TonWeb provider used');
 
+        let _fetch = window.fetch;
+
+        window.fetch = (...args)=>{
+            console.log('Fetch call', args);
+            return _fetch(...args)
+        }
         try{
            let TONClient = await import("https://tonconnect.svoi.dev/ton/main.js");
            console.log('TONCLIENT', TONClient);
