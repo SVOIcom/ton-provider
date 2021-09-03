@@ -74,9 +74,6 @@ class TonWallet extends EventEmitter3 {
             throw new Error("TONWallet extension not found");
         }
 
-        //Load TONClient
-        await loadTonWeb();
-
         this.provider = await window.getTONWeb();
 
         //Check extraTON connection
@@ -87,7 +84,8 @@ class TonWallet extends EventEmitter3 {
             throw new Error("Can't access to TONWallet");
         }
 
-
+        //Load TONClient
+        await loadTonWeb();
 
         //Create "oldschool" ton provider
         this.ton = await TONClient.create({
