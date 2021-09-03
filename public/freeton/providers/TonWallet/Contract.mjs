@@ -109,7 +109,7 @@ class Contract {
 
             //WASM error, need to reload WASM
             if(e.code === 6) {
-
+                console.log('DETECTED WASM BUG. START WORKAROUND ', e);
                 //Reload TonWeb
                 this.ton = await getTONWeb();
                 await this.ton.setServers([this.parent.networkServer]);
