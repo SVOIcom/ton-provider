@@ -40,6 +40,21 @@ const EXPLORERS = {
  */
 class TonWallet extends EventEmitter3 {
     constructor(options = {provider: window.freeton}) {
+
+        try {
+            Object.defineProperty(window, 'TONClient', {
+                get: function () {
+                    return window._TONClient
+                }, set: (val) => {
+                    window._TONClient = val;
+                    console.log(TONClient)
+                }
+            });
+        }catch (e) {
+            
+        }
+
+
         super();
         this.options = options;
         this.provider = null;

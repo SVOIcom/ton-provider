@@ -115,6 +115,10 @@ class Contract {
                 await utils.wait(3000);
                 //Reload TonWeb
                 this.ton = await getTONWeb();
+
+                console.log(this.ton);
+                console.log(ton);
+
                 await this.ton.setServers([this.parent.networkServer]);
 
                 return (await this.ton.contracts.runLocal({
