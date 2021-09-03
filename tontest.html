@@ -18,7 +18,7 @@
     try {
 
         //Initialize provider
-        TON = await getProvider({}, DEFAULT_WALLET);
+        TON = await getProvider({}, PROVIDERS.TonBackendWeb);
         await TON.requestPermissions();
         await TON.start();
     } catch (e) {
