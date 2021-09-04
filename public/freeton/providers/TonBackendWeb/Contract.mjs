@@ -122,6 +122,30 @@ class Contract {
         throw 'Deploy method not supported by TonBackendProvider';
     }
 
+    /**
+     * Get call payload
+     * @param method
+     * @param args
+     * @returns {Promise<*>}
+     */
+    async deployPayload(method, args = {}) {
+
+        let $ = jQuery;
+        //console.log('New jquery', $);
+        let postResult = await $.post('https://tonconnect.svoi.dev/TonBackendProvider/payload/' +
+            this.parent.networkServer + '/' + method, {
+                abi: JSON.stringify(this.abi),
+                input: args
+            }
+            );
+
+        if(postResult.status === 'error') {
+            throw JSON.parse(postResult.encodedError)
+        }
+
+        return postResult.result;
+    }
+
 }
 
 export default Contract;

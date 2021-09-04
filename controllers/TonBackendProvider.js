@@ -34,6 +34,32 @@ class TonBackendProvider extends _App {
 
     }
 
+    async payload(networkServer = 'main2.ton.dev',  method) {
+        let TON = await require('../modules/utils/TON')(networkServer)
+
+        try {
+            const callSet = {
+                function_name: method,
+                input: this.post.input
+            }
+            const encoded_msg = await TON.abi.encode_message_body({
+                abi: {
+                    type: 'Json',
+                    value: (this.post.abi)
+                },
+                call_set: callSet,
+                is_internal: true,
+                signer: {
+                    type: 'None'
+                }
+            });
+
+            return {status: 'ok', result: encoded_msg.body}
+        } catch (e) {
+            return {status: 'error', error: e.message, encodedError: JSON.stringify(e)};
+        }
+    }
+
 
     async config() {
         return {};
