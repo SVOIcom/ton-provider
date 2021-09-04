@@ -36,6 +36,8 @@ import {default as getProvider, PROVIDERS, UTILS} from "https://tonconnect.svoi.
     console.log('CURRENT WALLET', await TON.getWallet());
 ```
 
+See [examples](examples) for mor information
+
 ## Providers
 
 TonConnect now supports these providers and extensions:
