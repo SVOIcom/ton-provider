@@ -1,0 +1,43 @@
+<html>
+<head>
+    <title>TonConnect Test</title>
+</head>
+<body>
+
+
+<script type="module">
+
+
+    import {default as getProvider, PROVIDERS, UTILS} from "https://tonconnect.svoi.dev/freeton/getProvider.mjs";
+
+    window.getProvider = getProvider;
+    window.PROVIDERS = PROVIDERS;
+    window.UTILS = UTILS;
+
+
+    const DEFAULT_WALLET = PROVIDERS.TonWallet;
+
+    let TON = null;
+    try {
+
+        //Initialize provider
+        TON = await getProvider({}, DEFAULT_WALLET);
+        await TON.requestPermissions();
+        await TON.start();
+    } catch (e) {
+        console.log(e);
+        TON = await getProvider({
+            network: 'main',
+            networkServer: 'main2.ton.dev'
+        }, PROVIDERS.TonBackendWeb);
+        await TON.requestPermissions();
+        await TON.start();
+
+    }
+    window.TON = TON;
+
+    console.log('CURRENT WALLET', await TON.getWallet());
+
+</script>
+</body>
+</html>
