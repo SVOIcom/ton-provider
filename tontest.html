@@ -5,16 +5,37 @@
 <body>
 
 <script>
-    console.log(window.TONClient);
-    Object.defineProperty(window, 'TONClient', {
-        get: function () {
-            return window._TONClient
-        }, set: (val) => {
-            window._TONClient = val;
-            console.log(TONClient)
+    try {
+        let tonClients = [];
+
+        function checkWithWasm(){
+            if(tonClients[0].setWasmOptions) {
+                window.TONClient = tonClients[0];
+            } else {
+                window.TONClient = tonClients[1];
+            }
+            console.log(window.TONClient, tonClients);
         }
-    });
-    console.log(window.TONClient);
+
+
+        console.log(window.TONClient);
+        Object.defineProperty(window, 'TONClient', {
+            get: function () {
+                return window._TONClient
+            }, set: (val) => {
+                window._TONClient = val;
+                tonClients.push(TONClient);
+                console.log(TONClient)
+                if(tonClients.length===2){
+                    checkWithWasm();
+                }
+            }
+        });
+
+
+    }catch (e) {
+        console.log('YandexBrowser Workaround', e)
+    }
 </script>
 
 <script type="module">

@@ -36,6 +36,18 @@ import {default as getProvider, PROVIDERS, UTILS} from "https://tonconnect.svoi.
     console.log('CURRENT WALLET', await TON.getWallet());
 ```
 
+## Providers
+
+TonConnect now supports these providers and extensions:
+
+* [TONWallet](https://tonwallet.io) by SVOI.dev
+* [TON Crystal Wallet](https://l1.broxus.com/freeton/wallet) by Broxus
+* Internal: TonWeb - signing transactions and fetch blockchain information from webpage
+* Internal: TonBackendWeb - only for fetching information from smart contracts
+
+In progress:
+* [ExtraTon](https://extraton.io) 
+
 ## Info
 
 Developed with ❤️ by SVOI.dev Team https://svoi.dev
