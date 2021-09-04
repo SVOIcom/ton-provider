@@ -48,6 +48,12 @@ TonConnect now supports these providers and extensions:
 In progress:
 * [ExtraTon](https://extraton.io) 
 
+## Projects using TonConnect
+
+* Upcoming project...
+* [TonPunks.com](https://tonpunks.com)
+* [swap.block-chain.com](swap.block-chain.com) (elder version)
+
 ## Info
 
 Developed with ❤️ by SVOI.dev Team https://svoi.dev
