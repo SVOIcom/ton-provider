@@ -314,14 +314,20 @@ class CrystalWallet extends EventEmitter3 {
 
         let walletAddress = (await this.getWallet()).address;
 
-        const {transaction} = await this.provider.rawApi.sendMessage({
+        let sendObj = {
             sender: (walletAddress),
             recipient: (to),
             amount: String(amount),
             bounce: bounce,
-            payload: payload
+            //payload: payload
 
-        });
+        };
+
+        if(payload){
+            sendObj.payload = payload;
+        }
+
+        const {transaction} = await this.provider.rawApi.sendMessage();
 
         return transaction
     }

@@ -1,0 +1,55 @@
+<html>
+<head>
+    <title>TonConnect Test</title>
+</head>
+<body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bignumber.js/8.0.2/bignumber.min.js" integrity="sha512-7UzDjRNKHpQnkh1Wf1l6i/OPINS9P2DDzTwQNX79JxfbInCXGpgI1RPb3ZD+uTP3O5X7Ke4e0+cxt2TxV7n0qQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="module">
+
+
+    import {default as getProvider, PROVIDERS, UTILS} from "https://tonconnect.svoi.dev/freeton/getProvider.mjs";
+    import ERC721 from "./ERC721.mjs";
+
+    window.getProvider = getProvider;
+    window.PROVIDERS = PROVIDERS;
+    window.UTILS = UTILS;
+
+
+    const DEFAULT_WALLET = confirm('Press ok if you want to user TonWallet  or cancel for Crystal Wallet') ? PROVIDERS.TonWallet : PROVIDERS.CrystalWallet;
+
+
+    let TON = null;
+    try {
+        //Initialize provider
+        TON = await getProvider({}, DEFAULT_WALLET);
+        await TON.requestPermissions();
+        await TON.start();
+
+        window.TON = TON;
+
+        try {
+
+            let address = prompt('Enter transfer address');
+            let amount = UTILS.numberToUnsignedNumber(prompt('Enter transfer amount in TON'))
+
+
+            try {
+                TON.walletTransfer(address, amount, undefined);
+            } catch (e) {
+
+            }
+
+        } catch (e) {
+            console.log(e);
+            alert('Invalid data')
+        }
+
+    } catch (e) {
+        alert('This page requires extension')
+    }
+
+
+</script>
+</body>
+</html>

@@ -4,46 +4,12 @@
 </head>
 <body>
 
-<script>
-    try {
-        let tonClients = [];
-
-        function checkWithWasm(){
-            if(tonClients[0].setWasmOptions) {
-                window.TONClient = tonClients[0];
-            } else {
-                window.TONClient = tonClients[1];
-            }
-            console.log(window.TONClient, tonClients);
-        }
-
-
-        console.log(window.TONClient);
-        Object.defineProperty(window, 'TONClient', {
-            get: function () {
-                return window._TONClient
-            }, set: (val) => {
-                window._TONClient = val;
-                tonClients.push(TONClient);
-                console.log(TONClient)
-                if(tonClients.length===2){
-                    checkWithWasm();
-                }
-            }
-        });
-
-
-    }catch (e) {
-        console.log('YandexBrowser Workaround', e)
-    }
-</script>
 
 <script type="module">
 
 
-
-
     import {default as getProvider, PROVIDERS, UTILS} from "https://tonconnect.svoi.dev/freeton/getProvider.mjs";
+    import ERC721 from "./ERC721.mjs";
 
     window.getProvider = getProvider;
     window.PROVIDERS = PROVIDERS;
@@ -53,13 +19,13 @@
     const DEFAULT_WALLET = PROVIDERS.TonWallet;
 
     let TON = null;
-    //try {
+    try {
 
         //Initialize provider
         TON = await getProvider({}, DEFAULT_WALLET);
         await TON.requestPermissions();
         await TON.start();
-    /*} catch (e) {
+    } catch (e) {
         console.log(e);
         TON = await getProvider({
             network: 'main',
@@ -68,10 +34,18 @@
         await TON.requestPermissions();
         await TON.start();
 
-    }*/
+    }
     window.TON = TON;
 
-    console.log('CURRENT WALLET', await TON.getWallet());
+    //Ton punks contract
+    let erc721 = await (new ERC721(TON)).init('0:10c094a246e044ce080777cf1ae6294d0a4c924ac17a19e22528d120bd7a63e5');
+
+    let tonPunksMinted = await erc721.getTokenSupplyInfo()
+
+    alert('Ton punks total minted tokens is ' + tonPunksMinted.mintedTokens);
+
+
+
 
 </script>
 </body>
