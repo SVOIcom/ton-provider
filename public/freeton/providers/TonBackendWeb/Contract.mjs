@@ -134,6 +134,15 @@ class Contract {
      */
     async deployPayload(method, args = {}) {
 
+        if(this.parent.crystalWalletPayloadFormat) {
+            return {
+                abi: JSON.stringify(this.abi),
+                method: method,
+                params: args
+            }
+        }
+
+
         let $ = jQuery;
         //console.log('New jquery', $);
         let postResult = await $.post('https://tonconnect.svoi.dev/TonBackendProvider/payload/' +
@@ -141,7 +150,7 @@ class Contract {
                 abi: JSON.stringify(this.abi),
                 input: args
             }
-            );
+        );
 
         if(postResult.status === 'error') {
             throw JSON.parse(postResult.encodedError)

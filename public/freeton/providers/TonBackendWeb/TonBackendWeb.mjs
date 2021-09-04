@@ -36,10 +36,10 @@ const EXPLORERS = {
 }
 
 /**
- * extraTON provider class
+ * Ton backend web
  */
 class TonBackendWeb extends EventEmitter3 {
-    constructor(options = {provider: null}) {
+    constructor(options = {provider: null, crystalWalletPayloadFormat: false}) {
         super();
         this.options = options;
         //this.provider = new freeton.providers.ExtensionProvider(options.provider);
@@ -56,6 +56,8 @@ class TonBackendWeb extends EventEmitter3 {
 
         this.account = null;
 
+        this.crystalWalletPayloadFormat = !!options.crystalWalletPayloadFormat;
+
 
         this.watchdogTimer = null;
     }
@@ -69,9 +71,9 @@ class TonBackendWeb extends EventEmitter3 {
         console.log('TonWeb provider used');
 
         //Create "oldschool" ton provider
-       /* this.ton = await TONClient.create({
-            servers: [this.networkServer]
-        });*/
+        /* this.ton = await TONClient.create({
+             servers: [this.networkServer]
+         });*/
 
         //Changes watchdog timer
         const syncNetwork = async () => {
@@ -147,9 +149,9 @@ class TonBackendWeb extends EventEmitter3 {
         }
 
         //Recreate TON provider
-       /* this.ton = await TONClient.create({
-            servers: [this.networkServer]
-        });*/
+        /* this.ton = await TONClient.create({
+             servers: [this.networkServer]
+         });*/
 
         this.emit('networkChanged', this.network, this,);
     }
