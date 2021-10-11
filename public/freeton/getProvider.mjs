@@ -16,7 +16,7 @@ import {} from '../thirdparty/eventemitter3.min.js';
 
 import TonWeb from "./providers/TonWeb/TonWeb.mjs";
 import TonWallet from "./providers/TonWallet/TonWallet.mjs";
-import CrystalWallet from "./providers/CrystalWallet/CrystalWallet.mjs";
+import CrystalWallet from "./providers/CrystalWallet/CrystalWallet.mjs?v=1";
 import ExtraTon from "./providers/ExtraTon/ExtraTon.mjs";
 import TonBackendWeb from "./providers/TonBackendWeb/TonBackendWeb.mjs";
 import utils from "./utils.mjs";
