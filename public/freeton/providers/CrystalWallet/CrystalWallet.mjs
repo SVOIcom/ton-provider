@@ -44,7 +44,9 @@ const NETWORKS_COMPILABILITY = {
     'Mainnet (GQL 1)': 'main2.ton.dev',
     'Mainnet (ADNL)': 'main2.ton.dev',
     'Testnet': 'net.ton.dev',
-    'fld.ton.dev': 'net.ton.dev'
+    'testnet': 'net.ton.dev',
+    'fld.ton.dev': 'net.ton.dev',
+    'mainnet': 'main2.ton.dev'
 
 }
 
