@@ -19,13 +19,14 @@ import ton, {hasTonProvider} from './ton-inpage-provider/dist/index.js';
 import loadTonWeb from "../TonWebLoader.mjs";
 
 const NETWORKS = {
-    main: 'main2.ton.dev',
+    main: 'main3.ton.dev',
     test: 'net.ton.dev'
 };
 
 const REVERSE_NETWORKS = {
     'main.ton.dev': 'main',
     'main2.ton.dev': 'main',
+     'main3.ton.dev': 'main',
     'net.ton.dev': 'test',
 
     'Mainnet (GQL 3)': 'main',
@@ -39,14 +40,14 @@ const REVERSE_NETWORKS = {
 
 const NETWORKS_COMPILABILITY = {
 
-    'Mainnet (GQL 3)': 'main2.ton.dev',
-    'Mainnet (GQL 2)': 'main2.ton.dev',
-    'Mainnet (GQL 1)': 'main2.ton.dev',
-    'Mainnet (ADNL)': 'main2.ton.dev',
+    'Mainnet (GQL 3)': 'main3.ton.dev',
+    'Mainnet (GQL 2)': 'main3.ton.dev',
+    'Mainnet (GQL 1)': 'main3.ton.dev',
+    'Mainnet (ADNL)': 'main3.ton.dev',
     'Testnet': 'net.ton.dev',
     'testnet': 'net.ton.dev',
     'fld.ton.dev': 'net.ton.dev',
-    'mainnet': 'main2.ton.dev'
+    'mainnet': 'main3.ton.dev'
 
 }
 
